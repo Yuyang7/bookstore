@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuyang.book.mapper.OrderItemMapper">
+<!--    void insert(OrderItem orderItem);-->
+    <insert id="insert" >
+        insert into t_order_item values(null,#{book.id},#{buyCount},#{orderBean.id})
+    </insert>
+<!--    List<OrderItem> getOrderItemList(OrderBean orderBean);-->
+    <select id="getOrderItemList" resultMap="OrderItemRM">
+        <if test="id !=null and id != '' ">
+            SELECT t_order_item.* FROM t_order JOIN t_order_item ON t_order.`id` = t_order_item.`orderBean`
+            WHERE t_order.`id`= #{id}
+        </if>
+
+    </select>
+    <resultMap id="OrderItemRM" type="OrderItem">
+        <id property="id" column="id"/>
+        <result property="book.id" column="book"/>
+        <result property="buyCount" column="buyCount"/>
+    </resultMap>
+</mapper>

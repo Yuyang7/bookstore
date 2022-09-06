@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuyang.book.mapper.OrderMapper">
+    <!--    void insert(OrderBean orderBean);-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into t_order
+        values (null, #{orderNo}, #{orderDate}, #{orderUser.id}, #{orderMoney}, #{orderStatus})
+    </insert>
+    <!--    List<OrderBean> getOrderList(@Param("id") Integer id);-->
+    <resultMap id="orderBeanRM" type="OrderBean">
+        <id property="id" column="id"/>
+        <result property="orderDate"  column="orderDate"/>
+        <result property="orderUser.id" column="orderUser"/>
+        <result property="orderMoney" column="orderMoney"/>
+        <result property="orderNo" column="orderNo"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <association property="totalBookCount" select="com.yuyang.book.mapper.OrderMapper.getTotalBookCount"
+                     column="id"/>
+    </resultMap>
+    <select id="getOrderList" resultMap="orderBeanRM">
+        select *
+        from t_order
+        where orderUser = #{id}
+    </select>
+    <!--    Integer getTotalBookCount(OrderBean orderBean);-->
+    <select id="getTotalBookCount" resultType="int">
+        SELECT SUM(t.buyCount) AS "totalBookCount"
+        FROM (
+                 SELECT t_order.`id`, t_order_item.`buyCount`
+                 FROM t_order
+                          JOIN t_order_item ON t_order.`id` = t_order_item.`orderBean`
+                 WHERE t_order.`id` = #{id}) t
+        GROUP BY t.id
+    </select>
+
+</mapper>

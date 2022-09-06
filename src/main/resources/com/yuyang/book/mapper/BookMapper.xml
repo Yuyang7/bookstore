@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuyang.book.mapper.BookMapper">
+<!--    List<Book> getAllBook();-->
+    <select id="getAllBook" resultType="Book">
+        select *from t_book
+    </select>
+<!-- Book getBookById(@Param("bookId") Integer id);-->
+    <select id="getBookById" resultType="Book">
+        select *from t_book where id=#{bookId}
+    </select>
+</mapper>
