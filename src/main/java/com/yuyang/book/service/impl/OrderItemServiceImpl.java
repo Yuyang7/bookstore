@@ -8,6 +8,7 @@ import com.yuyang.book.service.BookService;
 import com.yuyang.book.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2022/8/31 -23:35
  */
 @Service
+@Transactional
 public class OrderItemServiceImpl implements OrderItemService {
     @Autowired
     private OrderItemMapper orderItemMapper;

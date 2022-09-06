@@ -8,6 +8,7 @@ import com.yuyang.book.pojo.User;
 import com.yuyang.book.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import java.util.UUID;
  * @date 2022/8/31 -22:45
  */
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;

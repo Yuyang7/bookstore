@@ -9,6 +9,7 @@ import com.yuyang.book.service.BookService;
 import com.yuyang.book.service.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @date 2022/8/30 -19:06
  */
 @Service
+@Transactional
 public class BookServiceImpl implements BookService {
     @Autowired
     private BookMapper bookMapper;
